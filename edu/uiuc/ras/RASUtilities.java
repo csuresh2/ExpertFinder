@@ -1,8 +1,8 @@
 package edu.uiuc.ras;
 
-import edu.uiuc.ras.extract.ArrayList;
-import edu.uiuc.ras.extract.File;
-import edu.uiuc.ras.extract.String;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This is a utilities class that encloses all utility methods.
