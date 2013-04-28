@@ -40,6 +40,10 @@ public class NamedEntityExtractor
 	public ArrayList<File> conceptXMLFilesList;
 	public ArrayList<File> entityFoldersList;
 
+	/*
+	 * Constructor that takes in input and output folder names as arguments 
+	 * to instantiate an object.
+	 */
 	public NamedEntityExtractor(String inputFolder, String outputFolder)
 	{
 		INPUT_FILE_NAME_PREFIX = inputFolder;
@@ -47,6 +51,10 @@ public class NamedEntityExtractor
 		entitiesMap = new HashMap<String, ArrayList<EntityDescriptor>>();
 	}
 
+	/*
+	 * This method build two lists that contains content xml files 
+	 * and content xml files and then sorted based on their names.
+	 */
 	void buildContentAndConceptXMLFilesList()
 	{
 		contentXMLFilesList = new ArrayList<File>();
@@ -162,16 +170,26 @@ public class NamedEntityExtractor
 		}
 	}
 
-	public boolean isValidFileName(final String aFileName) {
+	/*
+	 * This method identifies if the argument aFileName is a valid
+	 * file name or not.
+	 */
+	public boolean isValidFileName(final String aFileName)
+	{
 	    final File aFile = new File(aFileName);
 	    boolean isValid = true;
-	    try {
-	        if (aFile.createNewFile()) {
+	    try
+	    {
+	        if (aFile.createNewFile())
+	        {
 	            aFile.delete();
 	        }
-	    } catch (IOException e) {
+	    }
+	    catch (IOException e)
+	    {
 	        isValid = false;
 	    }
+
 	    return isValid;
 	}
 
@@ -191,6 +209,10 @@ public class NamedEntityExtractor
 		return xmlFilesList;
 	}
 
+	/*
+	 * This method identifies the entity directories from the tagger's output 
+	 * folder (i.e., extractor's input) and builds the entityFoldersList.
+	 */
 	void populateEntityDirectoryList()
 	{
 		entityFoldersList = new ArrayList<File>();
@@ -206,6 +228,11 @@ public class NamedEntityExtractor
 	    }
 	}
 
+	/*
+	 * This method builds the entityXMLsMap, that contains a mapping of KEY 
+	 * i.e., the entity name to VALUE i.e., a list of xml file names containing 
+	 * the concepts that decribe the entity (KEY).
+	 */
 	void populateEntityXMLsMap()
 	{
 		for(int i=0; i < entityFoldersList.size(); i++)
@@ -225,8 +252,13 @@ public class NamedEntityExtractor
 		}
 	}
 
+	/*
+	 * This method parses the concept xmls (collected during the enriching 
+	 * phase by the ConceptTagger) around the entity.
+	 */
 	void parseEntityXMLList()
 	{
+		// Populate the entityXMLsMap.
 		populateEntityXMLsMap();
 
 		// Parse it based on the output file of IE tagger.
@@ -278,6 +310,10 @@ public class NamedEntityExtractor
 		flushEntitiesMap();
 	}
 
+	/*
+	 * This method enriches the concepts built around an entity by utilizing the 
+	 * output from ConceptTagger.
+	 */
 	public void enrichEntityFiles()
 	{
 		entitiesMap = new HashMap<String, ArrayList<EntityDescriptor>>();
@@ -288,13 +324,22 @@ public class NamedEntityExtractor
 		flushEntitiesMap();
 	}
 
+
 	public static void main(String[] args)
 	{
-		NamedEntityExtractor extractor = new NamedEntityExtractor("/home/adarshms/academics/cs410/project/tagged_data/", "/home/adarshms/academics/cs410/project/extract_data/");
+		NamedEntityExtractor extractor = new NamedEntityExtractor("/home/adarshms/academics/" +
+				"cs410/project/tagged_data/", "/home/adarshms/academics/cs410/project/extract_" +
+				"data/");
 		extractor.createEntityFiles();
 		extractor.enrichEntityFiles();
 	}
 
+	/**
+	 * This is a file comparator class that defines how to compare 
+	 * two files while sorting the list of files.
+	 * 
+	 * @author chethans
+	 */
 	private class FileComparator implements Comparator<File>
 	{
 		public int compare(File f1, File f2)
