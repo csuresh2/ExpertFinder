@@ -11,6 +11,10 @@ import java.util.ArrayList;
  * This class encloses the tagged values of the current object/entity and 
  * the list of organizations this entity belongs to.
  * 
+ * keyValues: consists of all the values from the content xml.
+ * organizationsList: is a list of all organization or company names.
+ * conceptsList: is a list of all concepts tagged in the xml.
+ * 
  * @author chethans
  */
 public class EntityDescriptor
@@ -65,7 +69,8 @@ public class EntityDescriptor
 	}
 
 	/*
-	 * Writes itself to an output file in a tabbed spaced fashion.
+	 * This method writes itself (i.e., its instance) onto an output 
+	 * file in a tab spaced fashion.
 	 */
 	public void flushToFile(String filename)
 	{
