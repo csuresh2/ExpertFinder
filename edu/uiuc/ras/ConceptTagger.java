@@ -23,18 +23,37 @@ import com.google.api.services.customsearch.Customsearch;
 import com.google.api.services.customsearch.model.Result;
 import com.google.api.services.customsearch.model.Search;
 
+/**
+ * This class is used to perform two tasks
+ * 1) Incorporate feedback from Google for each named entity
+ * 2) Tag concepts in the feedback documents returned by google, in order to enrich the profile for each entity
+ * 
+ * Output: Adds concept keywords to the profile document for each named entity
+ * 
+ * 
+ * @author rucha
+ * 
+ */
 
 public class ConceptTagger {
 
 	String persondatafolder;
 	String taggedconceptdatafolder;
 	
+	/*
+	 * Constructor that takes in input and output folder names as arguments 
+	 * to instantiate an object.
+	 */
 	public ConceptTagger(String inputfolder, String outputfolder)
 	{
 		persondatafolder=inputfolder;
 		taggedconceptdatafolder=outputfolder;
 	}
 	
+	/*
+	 * This method returns the top 10 URLS from google. The query string is the name of the entity file 
+	 * which corresponds to the name of the person entity
+	 */
 	public List<String> getURLS(File ipfile)
 	{
 		String query_text=ipfile.getName();
@@ -67,7 +86,11 @@ public class ConceptTagger {
 	    return urls;
 	}
 	
-	
+	/*
+	 * This method adds concept keywords to the profile document for each named entity, using Alchemy API
+	 * @input: 1) List of feedback URLS from Google 2) Name of the person entity
+	 * @output: Concept keywords tagged from the text of the feedback documents
+	 */
 	public void generateConceptFiles(List<String> urls, String person_name)
 	{
 		int counter=1;
@@ -130,7 +153,10 @@ public class ConceptTagger {
 		}
 	}
 	
-	//method to convert XML Document to String
+	/*
+	 * This method returns the String representation of an XML document.
+	 * 
+	 */
 		public String getStringFromDocument(org.w3c.dom.Document doc)
 		{
 		    try
@@ -149,6 +175,10 @@ public class ConceptTagger {
 		       return null;
 		    }
 		} 
+		
+		/*
+		 * Wrapper method which generates the tagged concepts from Google for each named entity
+	 	*/
 		public void tagConcepts()
 		{
 			File[] files = new File(persondatafolder).listFiles();
