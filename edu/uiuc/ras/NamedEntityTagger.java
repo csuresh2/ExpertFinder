@@ -13,7 +13,15 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.File;
 
-
+/**
+ * This class tags the entities and concepts in the raw text documents obtained from the crawler
+ * 
+ * Output: Creates two documents per raw text input file. The first output file contains the tagged entities
+ * Second contains the tagged concepts
+ * 
+ * @author rucha
+ * 
+ */
 public class NamedEntityTagger
 {
 
