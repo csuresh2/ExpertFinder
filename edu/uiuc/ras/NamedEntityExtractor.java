@@ -160,11 +160,13 @@ public class NamedEntityExtractor
 				if(!(new File(OUTPUT_FILE_NAME_PREFIX + key)).exists() && 
 						isValidFileName(OUTPUT_FILE_NAME_PREFIX + key))
 				{
-					values.get(i).flushToFile(OUTPUT_FILE_NAME_PREFIX + key);
+					values.get(i).flushToFile(OUTPUT_FILE_NAME_PREFIX + key, 
+							OUTPUT_FILE_NAME_PREFIX + key + ".org");
 				}
 				else if(isValidFileName(OUTPUT_FILE_NAME_PREFIX + key))
 				{
-					values.get(i).flushToFile(OUTPUT_FILE_NAME_PREFIX + key);
+					values.get(i).flushToFile(OUTPUT_FILE_NAME_PREFIX + key, 
+							OUTPUT_FILE_NAME_PREFIX + key + ".org");
 				}
 			}
 		}

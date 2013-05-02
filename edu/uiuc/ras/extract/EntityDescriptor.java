@@ -72,7 +72,7 @@ public class EntityDescriptor
 	 * This method writes itself (i.e., its instance) onto an output 
 	 * file in a tab spaced fashion.
 	 */
-	public void flushToFile(String filename)
+	public void flushToFile(String filename, String organizationFileName)
 	{
 		try
 		{
@@ -80,30 +80,33 @@ public class EntityDescriptor
 			FileWriter fstream = new FileWriter(filename, true);
 			BufferedWriter out = new BufferedWriter(fstream);
 
+			// Create organizations filename
+			FileWriter orgStream = new FileWriter(organizationFileName, true);
+			BufferedWriter orgOut = new BufferedWriter(orgStream);
+
 			out.write("\n");
+			orgOut.write("\n");
 
 			// Write all tagged values.
-			out.write("Tagged Values List:\n");
+			/*out.write("Tagged Values List:\n");
 			for(int i=0; i < keyValues.size(); i++)
 			{
 				out.write(keyValues.get(i));
 				out.write("\n");
-			}
-
-			out.write("\n");
+			}*/
 
 			// Write all organizations list
-			out.write("Organizations List:\n");
+			orgOut.write("Organizations List:\n");
 			for(int i=0; i < organizationsList.size(); i++)
 			{
-				out.write(organizationsList.get(i));
-				out.write("\n");
+				orgOut.write(organizationsList.get(i));
+				orgOut.write("\n");
 			}
 
 			out.write("\n");
 
 			// Flush Concepts onto the file.
-			out.write("Concepts:\n");
+			// out.write("Concepts:\n");
 			for(int i=0; i < conceptsList.size(); i++)
 			{
 				out.write(conceptsList.get(i));
@@ -112,6 +115,7 @@ public class EntityDescriptor
 
 			// Close the output stream
 			out.close();
+			orgOut.close();
 		}
 		catch (Exception e)
 		{
