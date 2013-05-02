@@ -35,7 +35,10 @@ public class NamedEntityTagger
 		taggeddatafolder=outputfolder;
 
 	}
-
+	
+	/*
+	 * Wrapper method which generates the tagged output files for each input file
+	 */
 	public void tagData()
 	{
 		File[] files = new File(parsedDatafolder).listFiles();
@@ -43,7 +46,10 @@ public class NamedEntityTagger
 			generateTaggedOutput(ipfile);
 	}
 	
-	//method to convert XML Document to String
+	/*
+	 * This method returns the String representation of an XML document.
+	 * 
+	 */
 	public String getStringFromDocument(Document doc)
 	{
 	    try
@@ -63,6 +69,11 @@ public class NamedEntityTagger
 	    }
 	} 
 
+	/*
+	 * This method generates the tagged output using the Alchemy api.
+	 * @input: Raw text file
+	 * @output: Two output files per input file: 1) Tagged entities file 2)Tagged concepts file
+	 */
 	public void generateTaggedOutput(File ipfile)
 	{
 		try
